@@ -1,23 +1,25 @@
 import javax.sound.sampled.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Created by Ewout on 16/11/2014.
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-//        Dit werkt wel?!
-//        JFileChooser chooser = new JFileChooser();
-//        chooser.showOpenDialog(null);
-//        File audioFile = chooser.getSelectedFile();
+    public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException, InterruptedException {
 
-        //Dit werkt niet
-        File audioFile = new File(Main.class.getResource
-                ("/sounds/notification.wav").getPath());
-        System.out.println(audioFile.exists());
+        File audioFile;
 
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        audioFile = chooser.getSelectedFile();
+        //Dit werkt zelfs als je een niet audio file selecteerd.
+        audioFile = new File(Main.class.getResource
+                ("/sounds/light.wav").getPath());
         AudioInputStream ais = AudioSystem.getAudioInputStream(audioFile);
         Line.Info lineInfo = new Line.Info(Clip.class);
         Line line = AudioSystem.getLine(lineInfo);
